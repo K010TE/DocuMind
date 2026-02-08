@@ -36,25 +36,25 @@ O sistema segue um pipeline clássico de **RAG**, totalmente conteinerizado para
 
 ```mermaid
 graph TD
-    user([👤 Usuário]) -->|Upload de PDF| app[Streamlit App]
+    user([👤 Usuário]) -->|"Upload de PDF"| app[Streamlit App]
     
     subgraph "🐳 Container Docker (Ambiente Local)"
-        app -->|1. Extrair Texto| loader[PyPDF Loader]
-        loader -->|2. Chunking| splitter[Divisão Recursiva de Texto]
-        splitter -->|3. Embedding (CPU)| embed[HuggingFace Embeddings]
-        embed -->|4. Armazenar Vetores| qdrant[(Qdrant Vector DB)]
+        app -->|"1. Extrair Texto"| loader[PyPDF Loader]
+        loader -->|"2. Chunking"| splitter["Divisão Recursiva de Texto"]
+        splitter -->|"3. Embedding (CPU)"| embed["HuggingFace Embeddings"]
+        embed -->|"4. Armazenar Vetores"| qdrant[("Qdrant Vector DB")]
         
-        user -->|5. Fazer Pergunta| app
-        app -->|6. Busca Semântica| qdrant
-        qdrant -->|7. Recuperar Contexto| app
+        user -->|"5. Fazer Pergunta"| app
+        app -->|"6. Busca Semântica"| qdrant
+        qdrant -->|"7. Recuperar Contexto"| app
     end
     
     subgraph "☁️ Nuvem (Plataforma Groq)"
-        app -->|8. Enviar Contexto + Prompt| groq[API Groq (Llama 3.3)]
-        groq -->|9. Gerar Resposta| app
+        app -->|"8. Enviar Contexto + Prompt"| groq["API Groq (Llama 3.3)"]
+        groq -->|"9. Gerar Resposta"| app
     end
     
-    app -->|10. Exibir Resposta| user
+    app -->|"10. Exibir Resposta"| user
 
     style app fill:#ff4b4b,stroke:#333,stroke-width:2px,color:white
     style qdrant fill:#b21045,stroke:#333,stroke-width:2px,color:white
