@@ -1,0 +1,28 @@
+version: '3'
+services:
+  qdrant:
+    image: qdrant/qdrant
+    container_name: documind_db
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  app:
+    build: .
+    container_name: documind_app
+    ports:
+      - "8501:8501"
+    depends_on:
+      - qdrant
+    # 👇 AQUI ESTÁ A MÁGICA 👇
+    env_file:
+      - .env  # O Docker lê o arquivo e injeta as variáveis automaticamente
+    
+    # Se quiser, pode deixar o environment para coisas não-secretas
+    # ou remover se tudo estiver no .env
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434 # (Se ainda fosse usar Ollama)
+
+volumes:
+  qdrant_data:
