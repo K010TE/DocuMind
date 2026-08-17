@@ -189,7 +189,7 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 ## 👤 Autor
 
 **Itagiba Neto**
-*   **Cientista de Dados** | **Engenheiro de Machine Learning**
+
 *   [LinkedIn](https://linkedin.com/in/itagiba-neto)
 
 ---
